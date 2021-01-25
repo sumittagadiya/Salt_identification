@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<title>Upload an Image File</title>
+<body>
+<h1>Upload New Image File</h1>
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="image" accept=".png, .jpg, .jpeg">
+    <input type="submit" value="Predict">
+    <h3> Original Uploaded Image</h3>
+    <img src="static/uploaded/{{uploaded_image}}" height="200" width="200"></form>
+    <h3> Predicted Mask Image </h3>
+    <img src="static/predicted/{{pred_image}}" height="200" width="200"></form>
+</body>
+</html>
