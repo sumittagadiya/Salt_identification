@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <title>Upload an Image File</title>
 <body>
-<h1>Upload New Image File</h1>
+<h1>TGS Salt Identifiction</h1>
+
 <form method="post" enctype="multipart/form-data">
+    <h3> Please Upload Seismic Image </h3>
     <input type="file" name="image" accept=".png, .jpg, .jpeg">
-    <input type="submit" value="Predict">
-    <h3> Original Uploaded Image</h3>
-    <img src="static/uploaded/{{uploaded_image}}" height="200" width="200"></form>
-    <h3> Predicted Mask Image </h3>
-    <img src="static/predicted/{{pred_image}}" height="200" width="200"></form>
+    <button type="submit">Predict</button>
+    <br>
+    {% if uploaded_image %}
+        <h3> Uploaded_image</h3>
+        <img src="static/uploaded/{{uploaded_image}}" height="200" width="200">
+        <h3> Predicted Mask Image </h3>
+        <img src="static/predicted/{{pred_image}}" height="200" width="200">
+    {%endif%}
+</form>
 </body>
 </html>

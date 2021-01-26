@@ -4,15 +4,11 @@ import os
 import glob
 import re
 import numpy as np
-import joblib
 import random
 
-# Keras
-from keras.models import load_model
-from keras.models import model_from_json
-from keras.preprocessing.image import array_to_img, img_to_array, load_img
+# tf Keras
+import tensorflow as tf
 from skimage.transform import resize
-import matplotlib.pyplot as plt
 
 # import unet from model.py
 #from model import unet
@@ -50,8 +46,8 @@ def generate_random_name(filename):
 
 def model_prediction(image_path,model):
     ''' This function predicts mask image'''
-    img = load_img(image_path,color_mode='grayscale')
-    img = img_to_array(img)
+    img = tf.keras.preprocessing.image.load_img(image_path,color_mode='grayscale')
+    img = tf.keras.preprocessing.image.img_to_array(img)
     img = resize(img,(128,128),mode='constant',preserve_range=True)
     img = np.expand_dims(img,axis=0)
     img = img/255.0
@@ -83,7 +79,7 @@ def upload():
 
             # Make prediction
             preds = model_prediction(file_path, model)
-            pred_img = array_to_img(preds)
+            pred_img = tf.keras.preprocessing.image.array_to_img(preds)
             # generate random image file name for predicted image
             pred_filename = generate_random_name(image_file.filename)
             # predicted image absolute path
@@ -91,16 +87,17 @@ def upload():
             # save predicted image
             pred_img.save(pred_filepath)
 
-            return render_template('index.html',predict='Healthy Post',\
-                uploaded_image=image_file.filename,pred_image=pred_filename)
-    return render_template('index.html')
+
+            return render_template('index.html',
+            uploaded_image=image_file.filename,pred_image=pred_filename)
+    return render_template('index.html',uploaded_image=None,pred_image=None)
 
 if __name__ == '__main__':
     # Load pre-trained model
     json_file = open(MODEL_JSON_PATH, 'r')
     loaded_model_json = json_file.read()
     json_file.close()
-    model = model_from_json(loaded_model_json)
+    model = tf.keras.models.model_from_json(loaded_model_json)
     model.load_weights(MODEL_PATH)
     print('Model Loaded Succesfully')
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=8080,debug=True)
