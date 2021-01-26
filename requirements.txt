@@ -1,3 +1,5 @@
 tensorflow==2.0.0a0
 scikit-image
 flask
+gunicorn==19.9.0
+
