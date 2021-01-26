@@ -31,6 +31,14 @@ UPLOAD_FOLDER = 'static/uploaded'
 PRED_FOLDER = 'static/predicted'
 
 
+# Load pre-trained model
+json_file = open(MODEL_JSON_PATH, 'r')
+loaded_model_json = json_file.read()
+json_file.close()
+model = tf.keras.models.model_from_json(loaded_model_json)
+model.load_weights(MODEL_PATH)
+print('Model Loaded Succesfully')
+
 def generate_random_name(filename):
     """ Generate a random name for an uploaded file. """
     ext = filename.split('.')[-1]
@@ -58,7 +66,7 @@ def model_prediction(image_path,model):
 
 
 @app.route('/', methods=['GET', 'POST'])
-def upload(model):
+def upload():
     if request.method == 'POST':
         if 'image' not in request.files:
             flash('No file was uploaded.')
@@ -93,11 +101,5 @@ def upload(model):
     return render_template('index.html',uploaded_image=None,pred_image=None)
 
 if __name__ == '__main__':
-    # Load pre-trained model
-    json_file = open(MODEL_JSON_PATH, 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
-    model = tf.keras.models.model_from_json(loaded_model_json)
-    model.load_weights(MODEL_PATH)
-    print('Model Loaded Succesfully')
-    app.run(host='0.0.0.0',port=8080,debug=True)
+    
+    app.run(debug=True)
