@@ -58,7 +58,7 @@ def model_prediction(image_path,model):
 
 
 @app.route('/', methods=['GET', 'POST'])
-def upload():
+def upload(model):
     if request.method == 'POST':
         if 'image' not in request.files:
             flash('No file was uploaded.')
