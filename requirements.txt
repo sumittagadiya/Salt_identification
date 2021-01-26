@@ -1,5 +1,5 @@
 pip==21.0
 gunicorn==19.9.0
-tensorflow==2.4.1
+tensorflow-cpu
 scikit-image
 flask
