@@ -1,18 +1,80 @@
 <!DOCTYPE html>
-<title>Upload an Image File</title>
+<title>Salt Identifiction</title>
+<style>
+    html, body {
+      height:100%;
+      background-image: url('https://cdn3.vectorstock.com/i/1000x1000/53/22/abstract-blue-science-background-vector-4415322.jpg');
+      background-repeat:no-repeat;
+      background-size:cover;
+    }
+
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        }
+    .button2 {
+        background-color: white; 
+        color: black; 
+        border: 2px solid rgb(10, 204, 238);
+        }
+
+    .button2:hover {
+        background-color: rgb(3, 35, 46);
+        color: white;
+        }
+
+            * {
+      box-sizing: border-box;
+      }
+
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 5px;
+        margin-left: 12%;
+        }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
+
 <body>
-<h1>TGS Salt Identifiction</h1>
+    <center><h1 style="color:rgb(8, 8, 8);">Salt Identifiction from a Seismic Image</h1></center>
 
 <form method="post" enctype="multipart/form-data">
-    <h3> Please Upload Seismic Image </h3>
-    <input type="file" name="image" accept=".png, .jpg, .jpeg">
-    <button type="submit">Predict</button>
+    <center><h2 style="color:rgb(24, 26, 24);"> Please Upload Seismic Image </h2></center>
+    <center><p>You can download seismic images for testing purpose from <a href="https://drive.google.com/drive/folders/1qNVwIv9U6lyyGGU7nZoH4FiLvA5V1VwH?usp=sharing">Here</a></p></center>
+    <center><p>To get more detail about this project please click <a href="https://github.com/sumittagadiya/Salt_identification/blob/main/README.md">Here</a> </p></center>
+    <center><input type="file" name="image" style="color:red;" accept=".png, .jpg, .jpeg" required></center>
     <br>
+    <center><button class="button button2" type="submit"><b>Predict</b></button></center>
     {% if uploaded_image %}
-        <h3> Uploaded_image</h3>
+    <center><p><b>Note : </b>If a white area appears in predicted image then salt is present otherwise it's a normal image</p></center>
+    <center>
+    <div class="row">
+        <div class="column">
+        <h3 style="color:rgb(21, 22, 22);"> Uploaded_image</h3>
         <img src="static/uploaded/{{uploaded_image}}" height="200" width="200">
-        <h3> Predicted Mask Image </h3>
+        </div>
+        <div class="column">
+        <h3 style="color:rgb(22, 26, 26);" > Predicted Mask Image </h3>
         <img src="static/predicted/{{pred_image}}" height="200" width="200">
+        </div>
+    </div>
+    </center>
     {%endif%}
 </form>
 </body>
