@@ -1,4 +1,4 @@
-pip==21.0
+pip==23.1
 gunicorn==19.9.0
 tensorflow-cpu
 scikit-image
